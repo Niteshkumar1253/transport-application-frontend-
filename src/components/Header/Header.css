@@ -1,0 +1,15 @@
+.img-logo{
+    height: 60px;
+    width: 170px;
+}
+
+.register-btn{
+    border: 1px tomato solid ;
+    color: tomato;
+}
+
+.register-btn:hover{
+    color: white;
+    background-color: tomato;
+
+}

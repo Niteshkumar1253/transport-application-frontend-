@@ -1,0 +1,36 @@
+.main-image{
+    height: 70vh;
+    width: 60vw;
+}
+.img-container{
+    
+}
+.img-container h2{
+    font-size: 45px;
+
+}
+.img-container span{
+    font-size:25px ;
+}
+
+.login-container h3{
+    font-size: 25px;
+    font-weight: bold;
+    color: tomato;
+}
+.login-box{
+    margin-left: 40px;
+    
+}
+.main-container{
+    margin-right: 0px;
+}
+.login-btn{
+    border: 0.1em tomato solid;
+    color: tomato;
+    font-weight: bold;
+}
+.login-btn:hover{
+    background-color: tomato;
+    color: #fff;
+}
