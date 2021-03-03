@@ -5,9 +5,6 @@ import image from './roadimg.png'
 import { Link } from 'react-router-dom'
 import Table from "react-bootstrap/Table";
 
-const api = axios.create({
-  baseURL: "http://localhost:3090/details"
-})
 
 export default class UserHomePage1 extends Component {
   state = {
@@ -61,9 +58,26 @@ export default class UserHomePage1 extends Component {
     this.getRecommendation();
   };
 
-  createCourse = async () => {
-    details: 
-    await api.post('/', { destination: this.state.destName, source: this.state.srcName, })
+  addHandler = (index) => {
+    axios(
+      {
+        method : 'post',
+        url: 'http://localhost:3090/favourite',
+        data: {
+            email : 'uniques',
+            details : [
+              {
+                source: this.state.srcName,
+                destination: this.state.destName,
+                srcLon: this.state.srcLon,
+                srcLat: this.state.srcLat,
+                destLon: this.state.destLon,
+                destLat: this.state.destLat
+              }
+            ]
+        }
+      }
+    )
   }
 
   componentDidMount() { }
@@ -140,7 +154,7 @@ export default class UserHomePage1 extends Component {
             ))}
           </tbody>
           <div>
-            <button className="btn login-btn1" onClick={this.createCourse}>Add News</button>
+            <button className="btn login-btn1" onClick={this.addHandler}>Add News</button>
           </div>
         </Table>
       </div>

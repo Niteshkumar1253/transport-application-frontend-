@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./SignUp.css";
-import { Link } from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import axios from 'axios'
 
 const emailRegex = RegExp(
@@ -246,8 +246,7 @@ export default class SignUp extends Component {
             </div>
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <small>Already Have an Account?</small>
-              {/* <Link to="/">Click Here</Link> */}
+              <Link to="/">Already Have an Account?</Link>
             </div>
           </form>
         </div>

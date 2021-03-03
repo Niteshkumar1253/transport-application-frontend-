@@ -1,0 +1,32 @@
+{
+  "favourite": [
+    {
+      "email": "uniques",
+      "details": [
+        {
+          "source": "North Wembley",
+          "destination": "Yatton",
+          "srcLon": -0.303984,
+          "srcLat": 51.562594,
+          "destLon": -2.827779,
+          "destLat": 51.391012
+        }
+      ],
+      "id": 1
+    },
+    {
+      "email": "uniques",
+      "details": [
+        {
+          "source": "London Euston",
+          "destination": "Yatton",
+          "srcLon": -0.133924,
+          "srcLat": 51.528135,
+          "destLon": -2.827779,
+          "destLat": 51.391012
+        }
+      ],
+      "id": 2
+    }
+  ]
+}

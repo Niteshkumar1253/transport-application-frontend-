@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+// import "./SignUp.css";
+import { Link } from 'react-router-dom'
+import axios from 'axios'
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -20,7 +23,7 @@ const formValid = ({ formErrors, ...rest }) => {
   return valid;
 };
 
-export default class SignUp extends Component {
+export default class EditProfile extends Component {
   constructor(props) {
     super(props);
 
@@ -32,6 +35,7 @@ export default class SignUp extends Component {
       city: null,
       phoneNo: null,
       image: null,
+      isFetching: false,
       formErrors: {
         firstName: "",
         lastName: "",
@@ -44,19 +48,48 @@ export default class SignUp extends Component {
     };
   }
 
+   formDataFunction = () =>{
+    const formData = new FormData();
+    formData.append("firstName",this.state.firstName)
+    formData.append("lastName",this.state.lastName)
+    formData.append("email",this.state.email)
+    formData.append("password",this.state.password)
+    formData.append("city",this.state.city)
+    formData.append("phoneNo",this.state.phoneNo)
+    formData.append("file",this.state.image)
+    return formData;
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
 
     if (formValid(this.state)) {
-      console.log(`
-            --SUBMITTING--
-            First Name: ${this.state.firstName}
-            Last Name: ${this.state.lastName}
-            Email: ${this.state.email}
-            Password: ${this.state.password}
-            City: ${this.state.city}
-            Phone Number: ${this.state.phoneNo}
-          `);
+      // console.log(`
+      //       --SUBMITTING--
+      //       First Name: ${this.state.firstName}
+      //       Last Name: ${this.state.lastName}
+      //       Email: ${this.state.email}
+      //       Password: ${this.state.password}
+      //       City: ${this.state.city}
+      //       Phone Number: ${this.state.phoneNo}
+      //     `);
+      
+      axios.post(`http://localhost:8080/userprofile/v1/userprofile`,this.formDataFunction(),{
+        headers: {
+          'Content-Type': 'multipart/form-data'
+             }
+        },
+        {
+          onUploadProgress: progressEvent =>{
+              console.log('upload progress: '+ Math.round(progressEvent.loaded / progressEvent.total *100) )
+          }
+      
+      }).then(res =>{
+          console.log(res.data)
+      }
+
+      )
+
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
@@ -104,13 +137,39 @@ export default class SignUp extends Component {
     this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
 
+  componentDidMount(){
+
+    try {
+      let data =  axios.get(
+        'http://localhost:8080/userprofile/v1/userprofile/rashmeejoshi124@gmail.com',{
+          'headers':{
+            'Access-Control-Allow-Origin': '*',
+            
+          }
+        }
+        )
+        .then(({ data }) => data).catch();
+       
+        console.log(data);
+      
+    } catch (error) {
+      console.log("some error occured");
+    }
+      
+}
+
+
   render() {
     const { formErrors } = this.state;
     return (
-      <div className="wrapper">
+      <div className="wrapper" isfetching={this.state.isFetching}>
         <div className="form-wrapper">
-          <h1>Create Account</h1>
-          <form onSubmit={this.handleSubmit} noValidate>
+          <h1>Edit Profile</h1>
+
+        
+
+
+          <form onSubmit={this.handleSubmit} noValidate >
             <div className="firstName">
               <label htmlFor="firstName">First Name</label>
               <input
@@ -203,7 +262,10 @@ export default class SignUp extends Component {
                 type="file"
                 name="image"
                 noValidate
-                onChange={this.handleChange}
+                onChange={(e) =>{
+                  this.setState({'image': e.target.files[0]})
+                  console.log(e.target.files[0])
+                }}
               />
               {formErrors.phoneNo.length > 0 && (
                 <span className="errorMessage">{formErrors.image}</span>
@@ -212,10 +274,11 @@ export default class SignUp extends Component {
             <div className="createAccount">
               <button type="submit">Create Account</button>
               <small>Already Have an Account?</small>
+              {/* <Link to="/">Click Here</Link> */}
             </div>
           </form>
         </div>
       </div>
     );
   }
-}
+  }
