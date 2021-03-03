@@ -1,0 +1,10 @@
+{
+    "favourites" :[{
+        "email":"string",
+        "details":[{
+            "source": "string",
+            "destinat":"string"
+        }]
+    }
+    ]
+}

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import logo from './images.png'
 import './UserHeader.css'
+import { Link } from 'react-router-dom'
 
 export default class UserHeader extends Component {
     render() {
@@ -15,7 +16,7 @@ export default class UserHeader extends Component {
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item active ml-5">
-                                <a class="nav-link ml-5 m-2 font-weight-bold" href="#">Home <span class="sr-only">(current)</span></a>
+                                <Link class="nav-link ml-5 m-2 font-weight-bold" to="/user">Home <span class="sr-only">(current)</span></Link>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link m-2 font-weight-bold" href="#">About Us</a>
@@ -24,32 +25,34 @@ export default class UserHeader extends Component {
                             <li class="nav-item">
                                 <a class="nav-link m-2 font-weight-bold" href="#" >Contact Us</a>
                             </li>
+                            <li class="nav-item">
+                                <Link class="nav-link m-2 font-weight-bold" to="/nearby">Nearby Places</Link>
+                            </li>
                         </ul>
                         <ul class="mr-5 my-lg-0">
                             <div class="btn-group">
                                 <button class="btn user-menu-btn  btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fa fa-user-circle" aria-hidden="true"></i>
+                                    <i class="fa fa-user-circle" aria-hidden="true"></i>
                                     &nbsp;
                                     User Name
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
-                                        Edit Profile</a>
-                                    <a class="dropdown-item" href="#">
-                                    <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;
-                                        Favorites</a>
+                                    <Link class="dropdown-item" to="/update">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>&nbsp;
+                                       Edit Profile</Link>
+                                    <Link class="dropdown-item" to="/favourite">
+                                        <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;
+                                        Favorites</Link>
                                     <div class="dropdown-divider"></div>
-                                    <a class="dropdown-item" href="#">
-                                    <i class="fa fa-power-off" aria-hidden="true"></i>
+                                    <Link class="dropdown-item" to="/">
+                                        <i class="fa fa-power-off" aria-hidden="true"></i>
                                         &nbsp;
-                                        Log out</a>
+                                        Log out</Link>
                                 </div>
                             </div>
                         </ul>
                     </div>
                 </nav>
-
             </div>
         )
     }

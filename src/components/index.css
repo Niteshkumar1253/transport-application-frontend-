@@ -2,13 +2,11 @@
     height: 70vh;
     width: 60vw;
 }
-.img-container{
-    
-}
+
 .img-container h2{
     font-size: 45px;
-
 }
+
 .img-container span{
     font-size:25px ;
 }
@@ -33,4 +31,16 @@
 .login-btn:hover{
     background-color: tomato;
     color: #fff;
+}
+.login{
+    display: flex;
+    flex-direction: column;
+    align-self:center; 
+}
+
+.login-form{
+    display: flex;
+    flex-direction: column;
+    align-self:center;
+    
 }

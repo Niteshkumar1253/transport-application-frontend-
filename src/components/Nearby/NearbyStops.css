@@ -1,0 +1,11 @@
+.part{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+.part-one{
+    width: 50vw;
+}
+.part-two{
+    width: 50vw;
+}

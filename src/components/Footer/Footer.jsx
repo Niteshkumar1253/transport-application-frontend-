@@ -37,7 +37,9 @@ export default function Footer() {
                             <form className="form-inline">
                                 <div className="form-group">
                                     <input type="email" />
-                                    <input type="submit" value="Subscribe"/>
+                                    <div className="mx-3">
+                                        <input type="submit" value="Subscribe"/>
+                                    </div>
                                 </div>
                             </form>
                         </div>
