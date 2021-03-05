@@ -35,7 +35,6 @@ export default class EditProfile extends Component {
       city: null,
       phoneNo: null,
       image: null,
-      isFetching: false,
       formErrors: {
         firstName: "",
         lastName: "",
@@ -48,15 +47,15 @@ export default class EditProfile extends Component {
     };
   }
 
-   formDataFunction = () =>{
+  formDataFunction = () => {
     const formData = new FormData();
-    formData.append("firstName",this.state.firstName)
-    formData.append("lastName",this.state.lastName)
-    formData.append("email",this.state.email)
-    formData.append("password",this.state.password)
-    formData.append("city",this.state.city)
-    formData.append("phoneNo",this.state.phoneNo)
-    formData.append("file",this.state.image)
+    formData.append("firstName", this.state.firstName)
+    formData.append("lastName", this.state.lastName)
+    formData.append("email", this.state.email)
+    formData.append("password", this.state.password)
+    formData.append("city", this.state.city)
+    formData.append("phoneNo", this.state.phoneNo)
+    formData.append("file", '')
     return formData;
   }
 
@@ -73,22 +72,26 @@ export default class EditProfile extends Component {
       //       City: ${this.state.city}
       //       Phone Number: ${this.state.phoneNo}
       //     `);
-      
-      axios.post(`http://localhost:8080/userprofile/v1/userprofile`,this.formDataFunction(),{
-        headers: {
-          'Content-Type': 'multipart/form-data'
-             }
-        },
-        {
-          onUploadProgress: progressEvent =>{
-              console.log('upload progress: '+ Math.round(progressEvent.loaded / progressEvent.total *100) )
-          }
-      
-      }).then(res =>{
-          console.log(res.data)
-      }
 
-      )
+      axios.put(`http://localhost:9013/userprofile/v1/userprofile`, {
+        firstName: this.state.firstName,
+        lastName: this.state.lastName,
+        email: this.state.email,
+        password: this.state.password,
+        city: this.state.city,
+        phoneNo: this.state.phoneNo,
+        image: ' c'
+      },
+        {
+          onUploadProgress: progressEvent => {
+            console.log('upload progress: ' + Math.round(progressEvent.loaded / progressEvent.total * 100))
+          }
+
+        }).then(res => {
+          console.log(res.data)
+        }
+
+        )
 
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
@@ -127,8 +130,8 @@ export default class EditProfile extends Component {
           value.length !== 10 ? "Enter 10 character phone number" : "";
         break;
       case "image":
-        formErrors.image = 
-            value.size > 1024 ? "File Size large" : "";
+        formErrors.image =
+          value.size > 1024 ? "File Size large" : "";
         break;
       default:
         break;
@@ -137,26 +140,34 @@ export default class EditProfile extends Component {
     this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
 
-  componentDidMount(){
 
-    try {
-      let data =  axios.get(
-        'http://localhost:8080/userprofile/v1/userprofile/rashmeejoshi124@gmail.com',{
-          'headers':{
-            'Access-Control-Allow-Origin': '*',
-            
-          }
-        }
-        )
-        .then(({ data }) => data).catch();
-       
-        console.log(data);
-      
-    } catch (error) {
-      console.log("some error occured");
+
+
+
+  componentDidMount() {
+
+    const user = JSON.parse(localStorage.getItem("userdetails"));
+    // this.setState({email:user.email})
+    let data = axios.get(
+      `http://localhost:9013/userprofile/v1/userprofile/${user.email}`, {
+      'headers': {
+        'Access-Control-Allow-Origin': '*',
+
+      }
     }
-      
-}
+    )
+      .then((res) => {
+        // console.log(res.data)
+        this.setState(res.data)
+      }).catch(error => {
+        console.log("error")
+      });
+
+    console.log(data);
+
+
+
+  }
 
 
   render() {
@@ -165,8 +176,11 @@ export default class EditProfile extends Component {
       <div className="wrapper" isfetching={this.state.isFetching}>
         <div className="form-wrapper">
           <h1>Edit Profile</h1>
-
-        
+          <div className="text-center">
+          {this.state.image ?
+            <img width='250' height='150' src={`data:image/*;base64,${this.state.image}`} /> :
+            ''}
+            </div>
 
 
           <form onSubmit={this.handleSubmit} noValidate >
@@ -178,6 +192,7 @@ export default class EditProfile extends Component {
                 type="text"
                 name="firstName"
                 noValidate
+                value={this.state.firstName}
                 onChange={this.handleChange}
               />
               {formErrors.firstName.length > 0 && (
@@ -192,6 +207,7 @@ export default class EditProfile extends Component {
                 type="text"
                 name="lastName"
                 noValidate
+                value={this.state.lastName}
                 onChange={this.handleChange}
               />
               {formErrors.lastName.length > 0 && (
@@ -205,6 +221,8 @@ export default class EditProfile extends Component {
                 placeholder="Email"
                 type="email"
                 name="email"
+                value={this.state.email}
+                readOnly
                 noValidate
                 onChange={this.handleChange}
               />
@@ -218,6 +236,7 @@ export default class EditProfile extends Component {
                 className={formErrors.password.length > 0 ? "error" : null}
                 placeholder="Password"
                 type="password"
+                value={this.state.password}
                 name="password"
                 noValidate
                 onChange={this.handleChange}
@@ -234,6 +253,7 @@ export default class EditProfile extends Component {
                 type="text"
                 name="city"
                 noValidate
+                value={this.state.city}
                 onChange={this.handleChange}
               />
               {formErrors.city.length > 0 && (
@@ -248,13 +268,14 @@ export default class EditProfile extends Component {
                 type="number"
                 name="phoneNo"
                 noValidate
+                value={this.state.phoneNo}
                 onChange={this.handleChange}
               />
               {formErrors.phoneNo.length > 0 && (
                 <span className="errorMessage">{formErrors.phoneNo}</span>
               )}
             </div>
-            <div className="image">
+            {/* <div className="image">
               <label htmlFor="image">User Image</label>
               <input
                 className={formErrors.image.size > 0 ? "error" : null}
@@ -262,23 +283,21 @@ export default class EditProfile extends Component {
                 type="file"
                 name="image"
                 noValidate
-                onChange={(e) =>{
-                  this.setState({'image': e.target.files[0]})
+                onChange={(e) => {
+                  this.setState({ 'image': e.target.files[0] })
                   console.log(e.target.files[0])
                 }}
               />
               {formErrors.phoneNo.length > 0 && (
                 <span className="errorMessage">{formErrors.image}</span>
               )}
-            </div>
+            </div> */}
             <div className="createAccount">
-              <button type="submit">Create Account</button>
-              <small>Already Have an Account?</small>
-              {/* <Link to="/">Click Here</Link> */}
+              <button type="submit" onClick={this.handleSubmit}>Update</button>
             </div>
           </form>
         </div>
       </div>
     );
   }
-  }
+}

@@ -1,39 +1,78 @@
-import React from 'react'
+import React, {Component} from 'react'
+import axios from 'axios';
 import image from './roadimg.png'
 import './index.css'
 import { Link } from 'react-router-dom'
 
-export default function Index() {
-    return (
-        <div className="main-container">
+
+class Index extends Component {
+    state = { 
+        email: '',
+        password: '',
+        error: ''
+    }
+
+    handleChange = (event) =>{
+        const temp = event.target.name;
+        this.setState({[temp]:event.target.value});
+    }
+
+    resetLoginForm = () => {
+        this.setState({email:''});
+        this.setState({password:''});
+    }
+
+    handleLogin = (e) => {
+        e.preventDefault();
+        console.log(this.state.password)
+        axios
+            .post('http://localhost:9012/login/user',{
+                
+                email:this.state.email,
+                password:this.state.password
+            })
+            .then(response => {
+                console.log(response);
+                if(response.data.accessToken){
+                    localStorage.setItem("userdetails",JSON.stringify(response.data));
+                    this.props.history.push("/user");
+                }
+                else{
+                    console.log("error");
+                }
+            }) 
+    }
+
+    render() { 
+        return ( 
             <div className="container-fluid pl-0">
-                <div className="row my-3 ml-0 mt-4 ">
+                <div className="row my-3 ml-0 mt-4">
                     <div className="col-lg-8 col-md-6 col-sm-12 img-container">
                         <h2 className="mt-2 font-weight-bold"> My Travel</h2>
                         <span><em> The fastest, Easiest way to Gather information..! </em></span>
-                        <img className="main-image" src={image} alt="" />
+                        <img className="main-image image-fluid" src={image} alt="" />
                     </div>
 
                     <div className="col-lg-4 col-md-6 col-sm-12 login-container">
-                        <div className="ml-5 my-5 col-lg-8 rounded border shadow login-box">
+                        <div className="my-5 col-lg-8 rounded border shadow login-box">
                             <h3 className="m-2 pt-2 pb-2 border-bottom ">Log in</h3>
                             <form className="m-2 ">
                                 <div className="login-form">
-                                    <div class="form-group">
+                                    <div className="form-group">
                                         <label>Email</label>
-                                        <input type="email" className="form-control" />
+                                        <input type="email" name="email" className="form-control" onChange={this.handleChange}/>
                                     </div>
-                                    <div class="form-group">
+                                    <div className="form-group">
                                         <label >Password</label>
-                                        <input type="password" className="form-control" />
+                                        <input type="password" name="password" className="form-control" onChange={this.handleChange}/>
                                     </div>
                                     <div className="login">
-                                        <div class="form-group form-check">
+                                        <div className="form-group form-check">
                                             <input type="checkbox" className="form-check-input" />
-                                            <label class="form-check-label" >Remember me</label>
+                                            <label className="form-check-label" >Remember me</label>
                                         </div>
                                         <div className="my-2 mx-3">
-                                            <Link type="submit" class="btn login-btn" to="/user">Log in</Link>
+                                            <button type="submit" className="btn login-btn" onClick={this.handleLogin}>Log in</button>
                                         </div>
                                     </div>
                                 </div>
@@ -42,6 +81,9 @@ export default function Index() {
                     </div>
                 </div>
             </div>
-        </div>
-    )
+         );
+    }
 }
+ 
+export default Index;
+

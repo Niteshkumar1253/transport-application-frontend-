@@ -14,8 +14,8 @@ export default function Header() {
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active ml-5">
-                            <Link class="nav-link ml-5 m-2 font-weight-bold" to="/">Home <span class="sr-only">(current)</span></Link>
+                        <li class="nav-item active">
+                            <Link class="nav-link m-2 font-weight-bold" to="/">Home <span class="sr-only">(current)</span></Link>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link m-2 font-weight-bold" href="#">About Us</a>
@@ -26,7 +26,7 @@ export default function Header() {
                         </li>
                     </ul>
                     <ul class="mr-5 my-lg-0">
-                        <Link class="btn register-btn my-5 mr-5 my-sm-0" to="/register"type="submit">Register</Link>
+                        <Link class="btn register-btn mr-5 my-sm-0" to="/register"type="submit">Register</Link>
                     </ul>
                 </div>
             </nav>

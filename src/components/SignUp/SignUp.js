@@ -73,7 +73,7 @@ export default class SignUp extends Component {
       //       Phone Number: ${this.state.phoneNo}
       //     `);
       
-      axios.post(`http://localhost:8080/userprofile/v1/userprofile`,this.formDataFunction(),{
+      axios.post(`http://localhost:9011/register/newuser`,this.formDataFunction(),{
         headers: {
           'Content-Type': 'multipart/form-data'
              }
@@ -93,6 +93,7 @@ export default class SignUp extends Component {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
     }
   };
+
 
   handleChange = (e) => {
     e.preventDefault();

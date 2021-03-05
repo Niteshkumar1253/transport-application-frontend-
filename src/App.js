@@ -4,7 +4,7 @@ import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import UserHeader from "./components/UserHome/UserHeader";
 import UserHomePage from "./components/UserHome/UserHomePage";
-import Nearby from "./components/Nearby/NearbyStops"
+import Nearby from "./components/Nearby/NearbyStops1"
 import SignUp from "./components/SignUp/SignUp";
 import EditProfile from "./components/UserHome/EditProfile";
 import Favourite from "./components/UserHome/Favourite";

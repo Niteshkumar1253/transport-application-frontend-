@@ -15,8 +15,8 @@ export default class UserHeader extends Component {
 
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav mr-auto">
-                            <li class="nav-item active ml-5">
-                                <Link class="nav-link ml-5 m-2 font-weight-bold" to="/user">Home <span class="sr-only">(current)</span></Link>
+                            <li class="nav-item active ml-lg-5">
+                                <Link class="nav-link ml-lg-5 m-2 font-weight-bold" to="/user">Home <span class="sr-only">(current)</span></Link>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link m-2 font-weight-bold" href="#">About Us</a>
@@ -29,7 +29,7 @@ export default class UserHeader extends Component {
                                 <Link class="nav-link m-2 font-weight-bold" to="/nearby">Nearby Places</Link>
                             </li>
                         </ul>
-                        <ul class="mr-5 my-lg-0">
+                        <ul class="mr-5 ml-0 my-lg-0">
                             <div class="btn-group">
                                 <button class="btn user-menu-btn  btn-md dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fa fa-user-circle" aria-hidden="true"></i>
@@ -44,7 +44,7 @@ export default class UserHeader extends Component {
                                         <i class="fa fa-heart" aria-hidden="true"></i>&nbsp;
                                         Favorites</Link>
                                     <div class="dropdown-divider"></div>
-                                    <Link class="dropdown-item" to="/">
+                                    <Link class="dropdown-item" to="/" onClick={() => {localStorage.removeItem("userdetails")}}>
                                         <i class="fa fa-power-off" aria-hidden="true"></i>
                                         &nbsp;
                                         Log out</Link>

@@ -9,7 +9,7 @@
 }
 
 .form-wrapper {
-  width: 600px;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   padding: 20px 40px;
@@ -63,14 +63,6 @@ input.error {
   display: relative;
 }
 
-.firstName {
-  margin-right: 1%;
-}
-
-.lastName {
-  margin-left: 1%;
-}
-
 .firstName,
 .lastName,
 .email,
@@ -84,10 +76,7 @@ input.error {
 }
 
 .firstName,
-.lastName {
-  width: 49%;
-}
-
+.lastName,
 .email,
 .password,
 .city,

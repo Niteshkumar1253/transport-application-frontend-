@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 import './NearbyStops.css'
 import map from './109-map-location.png'
 import axios from 'axios'
+import Dropdown from 'react-bootstrap/Dropdown'
+import Table from "react-bootstrap/Table";
 
 function NearbyStops() {
     const [city, setCity] = useState();
     const [type, setType] = useState();
     const [stops, setStops] = useState([]);
+    const[flag,setFlag] = useState(false);
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -17,9 +20,9 @@ function NearbyStops() {
                 setStops(res.data.member)
             );
 
-
         }
         getData();
+        setFlag(true);
     }
 
 
@@ -33,7 +36,7 @@ function NearbyStops() {
                         <div className="form-row mx-5 ">
                             <div className="col-6">
                                 <input type="text"
-                                    className="border border-secondary bg-white form-control mt-0"
+                                    className="border border-secondary bg-white form mt-0 drop"
                                     placeholder="City"
                                     name="city"
                                     value={city}
@@ -44,7 +47,7 @@ function NearbyStops() {
 
                             <div className="col-6">
                                 <select name="type"
-                                    className="form-control border-secondary"
+                                    className="form-control border-secondary drop"
                                     value={type}
                                     onChange={(event) => {
                                         setType(event.target.value);
@@ -53,16 +56,39 @@ function NearbyStops() {
                                     <option value="bus_stop">Bus</option>
                                     <option value="tube_station">Tube</option>
                                 </select>
+
                             </div>
 
                             <div className="col-2">
-                                <input type="submit" className="btn btn-secondary" value="Search"
+                                <input type="submit" className="btn-secondary drop" value="Search"
                                     onClick={submitHandler} />
                             </div>
                         </div>
                     </form>
 
-                    <table class=" m-4 ml-5 text-center">
+                    {
+                        flag ?
+                            <div>
+                                <Table striped bordered hover>
+                                    <thead>
+                                        <tr>
+                                            <th>{this.state.type} mode of station nearby {this.state.city} </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {stops.map((item) => (
+                                            <tr>
+                                                <td>{item.name}</td>
+                                            </tr>
+                                        ))}
+                                    </tbody>
+                                </Table>
+                              
+                            </div>
+                            : null
+                    }
+
+                    {/* <table class=" m-4 ml-5 text-center">
                         <thead>
                             <th scope="col" className="mb-2 lead font-weight-bold"> {type}</th>
                         </thead>
@@ -74,11 +100,11 @@ function NearbyStops() {
 
                             )
                         }
-                    </table>
+                    </table> */}
 
                 </div>
-                <div className="part-two">
-                    <img style={{ width: 35 + 'vw', height: 80 + 'vh' }} src={map} alt="" />
+                <div>
+                    <img className="image-fluid" src={map} alt="" />
                 </div>
             </div>
         </div>

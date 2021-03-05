@@ -1,11 +1,24 @@
-.part{
-    display: flex;
+.box
+{
+    display:flex;
     flex-direction: row;
-    justify-content: space-evenly;
 }
-.part-one{
-    width: 50vw;
+.drop
+{
+    height: 45px;
+    width: 100px;
 }
-.part-two{
-    width: 50vw;
+.data
+{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .image-cont {
+        display: none;
+    }
 }

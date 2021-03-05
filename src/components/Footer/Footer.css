@@ -93,6 +93,11 @@ h2,h3{
     line-height: 75px;
     margin-bottom: 0;
 }
+.form-group
+{
+    display: flex;
+    flex-direction: column;
+}
 
 
 
