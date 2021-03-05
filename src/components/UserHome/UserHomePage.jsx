@@ -131,7 +131,10 @@ export default class UserHomePage extends Component {
                         <label>
                           <b>Source</b>
                         </label>
-                        <input type="text" className="plac" placeholder="Enter Source"
+                        <input type="text" 
+                        name="source"
+                        value={this.state.source}
+                        className="plac" placeholder="Enter Source"
                           onChange={(e) => {
                             this.setState({ source: e.target.value });
                           }}
@@ -141,7 +144,10 @@ export default class UserHomePage extends Component {
                         <label>
                           <b>Destination</b>
                         </label>
-                        <input type="text" className="plac" placeholder="Enter Destination"
+                        <input type="text" 
+                        name="destination"
+                        value={this.state.destination}
+                        className="plac" placeholder="Enter Destination"
                           onChange={(e) => {
                             this.setState({ destination: e.target.value });
                           }}

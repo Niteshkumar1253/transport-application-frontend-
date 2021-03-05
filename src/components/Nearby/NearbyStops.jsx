@@ -37,10 +37,10 @@ export default class NearbyStops extends Component {
 
     render() {
         return (
-            <div className="container-fluid mt-5">
+            <div className="container-fluid my-5">
                 <div className="row mb-5">
                     <div className="col-lg-8 col-md-8 col-sm-12">
-                        <div className="box">
+                        <div className="box my-3">
                             <div className="drop">
                                 <input type="text"
                                     className="border border-secondary bg-white mt-0 drop"
