@@ -1,114 +1,104 @@
-import React, { useState } from 'react'
-import './NearbyStops.css'
+import React, { Component } from 'react'
 import map from './109-map-location.png'
 import axios from 'axios'
-import Dropdown from 'react-bootstrap/Dropdown'
 import Table from "react-bootstrap/Table";
+import './NearbyStops.css'
 
-function NearbyStops() {
-    const [city, setCity] = useState();
-    const [type, setType] = useState();
-    const [stops, setStops] = useState([]);
-    const[flag,setFlag] = useState(false);
+export default class NearbyStops extends Component {
+    state = {
+        city: "",
+        type: "",
+        stops: [{}],
+        flag: false,
+        error: ""
+    };
 
-    const submitHandler = (e) => {
+    submitHandler = (e) => {
         e.preventDefault();
-        async function getData() {
-            const res = await axios.get(
-                `http://transportapi.com/v3/uk/places.json?query=${city}&type=${type}&app_id=52826d30&app_key=1028832009a7340d2005b01392f1195a`
-            ).then(res =>
-                setStops(res.data.member)
-            );
-
-        }
-        getData();
-        setFlag(true);
+        this.getData();
     }
 
+    getData = async () => {
+        try {
+            let data = await axios
+                .get(
+                    `http://transportapi.com/v3/uk/places.json?query=${this.state.city}&type=${this.state.type}&app_id=52826d30&app_key=1028832009a7340d2005b01392f1195a`
+                )
+                .then(({ data }) => data);
+            this.setState({ stops: data.member });
+            this.setState({ flag: true });
+        }
+        catch (error) {
+            this.setState({ error: "No nearby stops found" });
+        }
+    };
 
-    return (
-        <div>
-            <h1 className="m-5 display-4 text-left">Near By Stops</h1>
 
-            <div className="part">
-                <div className="part-one ml-5">
-                    <form action="">
-                        <div className="form-row mx-5 ">
-                            <div className="col-6">
+
+    render() {
+        return (
+            <div className="container-fluid mt-5">
+                <div className="row mb-5">
+                    <div className="col-lg-8 col-md-8 col-sm-12">
+                        <div className="box">
+                            <div className="drop">
                                 <input type="text"
-                                    className="border border-secondary bg-white form mt-0 drop"
+                                    className="border border-secondary bg-white mt-0 drop"
                                     placeholder="City"
                                     name="city"
-                                    value={city}
+                                    value={this.state.city}
                                     onChange={(event) => {
-                                        setCity(event.target.value);
+                                        this.setState({ city: event.target.value });
                                     }} />
                             </div>
-
-                            <div className="col-6">
+                            <div className="drop">
                                 <select name="type"
-                                    className="form-control border-secondary drop"
-                                    value={type}
+                                    className="border border-danger rounded bg-sucess drop"
+                                    value={this.state.type}
                                     onChange={(event) => {
-                                        setType(event.target.value);
+                                        this.setState({ type: event.target.value });
                                     }}>
                                     <option value="train_station" selected>Train</option>
                                     <option value="bus_stop">Bus</option>
                                     <option value="tube_station">Tube</option>
                                 </select>
-
                             </div>
-
-                            <div className="col-2">
-                                <input type="submit" className="btn-secondary drop" value="Search"
-                                    onClick={submitHandler} />
+                            <div className="drop">
+                                <input type="submit" className="btn btn-danger drop" value="Search"
+                                    onClick={this.submitHandler} />
                             </div>
                         </div>
-                    </form>
+                        <div>
+                            {
+                                this.state.flag ?
+                                    <div>
+                                        <Table striped bordered hover>
+                                            <thead>
+                                                <tr>
+                                                    <th>{this.state.type} mode of station nearby {this.state.city} </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.stops.map((item) => (
+                                                    <tr>
+                                                        <td>{item.name}</td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </Table>
 
-                    {
-                        flag ?
-                            <div>
-                                <Table striped bordered hover>
-                                    <thead>
-                                        <tr>
-                                            <th>{this.state.type} mode of station nearby {this.state.city} </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {stops.map((item) => (
-                                            <tr>
-                                                <td>{item.name}</td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </Table>
-                              
-                            </div>
-                            : null
-                    }
+                                    </div>
+                                    : null
+                            }
+                        </div>
 
-                    {/* <table class=" m-4 ml-5 text-center">
-                        <thead>
-                            <th scope="col" className="mb-2 lead font-weight-bold"> {type}</th>
-                        </thead>
-                        {
-                            stops.map(item =>
-                                <tr className="m-1 p-2">
-                                    <td>{item.name}</td>
-                                </tr>
 
-                            )
-                        }
-                    </table> */}
-
-                </div>
-                <div>
-                    <img className="image-fluid" src={map} alt="" />
+                    </div>
+                    <div className="col-lg-4 col-md-4 col-sm-12 image-cont">
+                        <img className="image-fluid w-100" src={map} alt="" />
+                    </div>
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
-
-export default NearbyStops

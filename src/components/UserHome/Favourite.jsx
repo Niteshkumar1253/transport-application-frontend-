@@ -19,12 +19,17 @@ export default class Favourite extends Component {
 
     componentDidMount() {
         const user = JSON.parse(localStorage.getItem("userdetails"));
+        if(user){
         this.setState({ email: user.email })
         // console.log('inside email'+user.email);
         axios.get(`http://localhost:9006/api/v1/favourite/${user.email}`, { headers: authHeader() }).then(res => {
             const temp = res.data;
             this.setState({ fav: temp });
         })
+    }
+    else{
+        this.props.history.push("/");
+    }
     }
     deleteHandler = (index) => {
         const user = JSON.parse(localStorage.getItem("userdetails"));
@@ -48,7 +53,7 @@ export default class Favourite extends Component {
         return (
             <div className="container my-5">
                 <h1 className="text-center text-danger mb-2">Favourite!</h1>
-                <img src={aircraft} alt="image" className="img-fluid custom-img"></img>
+                <img src={aircraft} alt="imag" className="img-fluid custom-img"></img>
 
                 <div className="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 py-2 my-3">
                     {
@@ -62,7 +67,6 @@ export default class Favourite extends Component {
                                         <p className="mb-0">{t.destination}</p>
                                         {/* <p className="mb-0">({t.mode})</p> */}
                                         <button onClick={() => this.deleteHandler(index)} className="button btn-danger rounded-pill px-3 py-1 mx-1">Delete</button>
-
                                     </div>
 
 

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 // import "./SignUp.css";
-import { Link } from 'react-router-dom'
 import axios from 'axios'
 
 const emailRegex = RegExp(
@@ -148,7 +147,9 @@ export default class EditProfile extends Component {
 
     const user = JSON.parse(localStorage.getItem("userdetails"));
     // this.setState({email:user.email})
-    let data = axios.get(
+    if(user)
+    {
+    axios.get(
       `http://localhost:9013/userprofile/v1/userprofile/${user.email}`, {
       'headers': {
         'Access-Control-Allow-Origin': '*',
@@ -157,13 +158,17 @@ export default class EditProfile extends Component {
     }
     )
       .then((res) => {
-        // console.log(res.data)
         this.setState(res.data)
       }).catch(error => {
         console.log("error")
       });
 
-    console.log(data);
+    // console.log(data);
+    }
+    else
+    {
+      this.props.history.push("/");
+    }
 
 
 
@@ -178,7 +183,7 @@ export default class EditProfile extends Component {
           <h1>Edit Profile</h1>
           <div className="text-center">
           {this.state.image ?
-            <img width='250' height='150' src={`data:image/*;base64,${this.state.image}`} /> :
+            <img width='250' height='150' alt = "" src={`data:image/*;base64,${this.state.image}`} /> :
             ''}
             </div>
 

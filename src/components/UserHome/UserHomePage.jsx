@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import axios from "axios";
 import "./User.css";
 import image from './roadimg.png'
-import { Link } from 'react-router-dom'
 import Table from "react-bootstrap/Table";
 import authHeader from "../services/authHeader";
 
@@ -59,12 +58,17 @@ export default class UserHomePage extends Component {
   };
 
   getRecommendation = async () => {
-    let data = await axios
+    try{let data = await axios
       .get(
         `https://transportapi.com/v3/uk/public/journey/from/lonlat:${this.state.srcLon},${this.state.srcLat}/to/lonlat:${this.state.destLon},${this.state.destLat}.json?app_id=52826d30&app_key=1028832009a7340d2005b01392f1195a`
       )
       .then(({ data }) => data);
     this.setState({ recommendation: data.routes[0].route_parts });
+    this.setState({ flag: true });
+      }
+      catch (error) {
+        this.setState({error: "No route between these combination exist"});
+      }
   };
 
   submitHandler = (e) => {
@@ -72,7 +76,7 @@ export default class UserHomePage extends Component {
     this.getSrcData();
     this.getDestData();
     this.getRecommendation();
-    this.setState({ flag: true })
+    
   };
 
   addHandler = (index) => {
@@ -100,10 +104,14 @@ export default class UserHomePage extends Component {
 
   componentDidMount() {
     const user = JSON.parse(localStorage.getItem("userdetails"));
+    if(user){
     this.setState({email:user.email})
     console.log(user.email);
+   } else{
+     this.props.history.push("/");
    }
-
+  }
+  
   render() {
     return (
       <div>

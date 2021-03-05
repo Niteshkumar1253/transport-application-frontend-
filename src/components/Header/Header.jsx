@@ -7,7 +7,7 @@ export default function Header() {
     return (
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-white shadow rounded">
-                <img class="navbar-brand img-logo" href="#" src={logo}></img>
+                <img class="navbar-brand img-logo" href="#" src={logo} alt=""></img>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -18,11 +18,11 @@ export default function Header() {
                             <Link class="nav-link m-2 font-weight-bold" to="/">Home <span class="sr-only">(current)</span></Link>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link m-2 font-weight-bold" href="#">About Us</a>
+                            <a class="nav-link m-2 font-weight-bold" href="#to">About Us</a>
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link m-2 font-weight-bold" href="#" >Contact Us</a>
+                            <a class="nav-link m-2 font-weight-bold" href="#to" >Contact Us</a>
                         </li>
                     </ul>
                     <ul class="mr-5 my-lg-0">

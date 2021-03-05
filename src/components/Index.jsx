@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios';
 import image from './roadimg.png'
 import './index.css'
-import { Link } from 'react-router-dom'
+
 
 
 class Index extends Component {
@@ -39,8 +39,14 @@ class Index extends Component {
                 }
                 else{
                     console.log("error");
+                    
                 }
-            }) 
+            })
+            .catch(error => {
+                this.setState({error: "Login Credentials Not Correct"});
+                this.resetLoginForm();
+            })
+            this.resetLoginForm();
     }
 
     render() { 
@@ -50,7 +56,7 @@ class Index extends Component {
                     <div className="col-lg-8 col-md-6 col-sm-12 img-container">
                         <h2 className="mt-2 font-weight-bold"> My Travel</h2>
                         <span><em> The fastest, Easiest way to Gather information..! </em></span>
-                        <img className="main-image image-fluid" src={image} alt="" />
+                        <img className="main-image image-fluid w-100" src={image} alt="" />
                     </div>
 
                     <div className="col-lg-4 col-md-6 col-sm-12 login-container">
@@ -60,7 +66,8 @@ class Index extends Component {
                                 <div className="login-form">
                                     <div className="form-group">
                                         <label>Email</label>
-                                        <input type="email" name="email" className="form-control" onChange={this.handleChange}/>
+                                        <input type="email" name="email" className="form-control"
+                                        onChange={this.handleChange}/>
                                     </div>
                                     <div className="form-group">
                                         <label >Password</label>
@@ -73,6 +80,11 @@ class Index extends Component {
                                         </div>
                                         <div className="my-2 mx-3">
                                             <button type="submit" className="btn login-btn" onClick={this.handleLogin}>Log in</button>
+                                        </div>
+                                        <div>
+                                            <p>
+                                                {this.state.error}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
