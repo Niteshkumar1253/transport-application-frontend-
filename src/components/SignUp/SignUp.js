@@ -247,7 +247,7 @@ export default class SignUp extends Component {
             </div>
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <Link to="/">Already Have an Account?</Link>
+              <Link class="nav-link alr" to="/">Already Have an Account?</Link>
             </div>
           </form>
         </div>

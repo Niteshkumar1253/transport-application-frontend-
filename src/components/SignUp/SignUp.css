@@ -115,3 +115,12 @@ input.error {
   color: #999;
   font-weight: lighter;
 }
+.alr
+{
+  color: rgb(117, 112, 112);
+}
+
+.alr:hover
+{
+  color: rgb(68, 61, 61) ;
+}
