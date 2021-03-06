@@ -33,7 +33,14 @@ export default class NearbyStops extends Component {
         }
     };
 
-
+    componentDidMount()
+    {
+        const user = JSON.parse(localStorage.getItem("userdetails"));
+        if(!user)
+        {
+            this.props.history.push("/");
+        }
+    }
 
     render() {
         return (

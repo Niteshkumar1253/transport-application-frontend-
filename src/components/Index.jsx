@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import axios from 'axios';
 import image from './roadimg.png'
 import './index.css'
@@ -6,51 +6,51 @@ import './index.css'
 
 
 class Index extends Component {
-    state = { 
+    state = {
         email: '',
         password: '',
         error: ''
     }
 
-    handleChange = (event) =>{
+    handleChange = (event) => {
         const temp = event.target.name;
-        this.setState({[temp]:event.target.value});
+        this.setState({ [temp]: event.target.value });
     }
 
     resetLoginForm = () => {
-        this.setState({email:''});
-        this.setState({password:''});
+        this.setState({ email: '' });
+        this.setState({ password: '' });
     }
 
     handleLogin = (e) => {
         e.preventDefault();
         console.log(this.state.password)
         axios
-            .post('http://localhost:9012/login/user',{
-                
-                email:this.state.email,
-                password:this.state.password
+            .post('http://localhost:9012/login/user', {
+
+                email: this.state.email,
+                password: this.state.password
             })
             .then(response => {
                 console.log(response);
-                if(response.data.accessToken){
-                    localStorage.setItem("userdetails",JSON.stringify(response.data));
+                if (response.data.accessToken) {
+                    localStorage.setItem("userdetails", JSON.stringify(response.data));
                     this.props.history.push("/user");
                 }
-                else{
+                else {
                     console.log("error");
-                    
+
                 }
             })
             .catch(error => {
-                this.setState({error: "Login Credentials Not Correct"});
+                this.setState({ error: "Login Credentials Not Correct" });
                 this.resetLoginForm();
             })
-            this.resetLoginForm();
+        this.resetLoginForm();
     }
 
-    render() { 
-        return ( 
+    render() {
+        return (
             <div className="container-fluid pl-0">
                 <div className="row my-3 ml-0 mt-4">
                     <div className="col-lg-8 col-md-6 col-sm-12 img-container">
@@ -67,11 +67,11 @@ class Index extends Component {
                                     <div className="form-group">
                                         <label>Email</label>
                                         <input type="email" name="email" className="form-control"
-                                        onChange={this.handleChange}/>
+                                            onChange={this.handleChange} />
                                     </div>
                                     <div className="form-group">
                                         <label >Password</label>
-                                        <input type="password" name="password" className="form-control" onChange={this.handleChange}/>
+                                        <input type="password" name="password" className="form-control" onChange={this.handleChange} />
                                     </div>
                                     <div className="login">
                                         <div className="form-group form-check">
@@ -81,11 +81,11 @@ class Index extends Component {
                                         <div className="my-2 mx-3">
                                             <button type="submit" className="btn login-btn" onClick={this.handleLogin}>Log in</button>
                                         </div>
-                                        <div>
-                                            <p>
-                                                {this.state.error}
-                                            </p>
-                                        </div>
+                                    </div>
+                                    <div>
+                                        <p>
+                                            {this.state.error}
+                                        </p>
                                     </div>
                                 </div>
                             </form>
@@ -93,9 +93,9 @@ class Index extends Component {
                     </div>
                 </div>
             </div>
-         );
+        );
     }
 }
- 
+
 export default Index;
 
