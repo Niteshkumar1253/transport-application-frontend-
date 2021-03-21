@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import "./User.css";
-import image from './roadimg.png'
+import roadimg from '../../images/roadimg.png';
 import Table from "react-bootstrap/Table";
 import authHeader from "../services/authHeader";
 
@@ -120,14 +120,14 @@ export default class UserHomePage extends Component {
               <div className="col-lg-8 col-md-6 col-sm-12 img-container">
                 <h2 className="mt-2 font-weight-bold"> My Travel</h2>
                 <span><em> The fastest, Easiest way to Gather information..! </em></span>
-                <img className="main-image1 imf-fluid"  src={image} alt="" />
+                <img className="main-image1 imf-fluid"  src={roadimg} alt="" />
               </div>
               <div className="col-lg-4 col-md-6 col-sm-12 login-container1 my-5">
                 <div className="ml-lg-5 mt-lg-5 col-lg-8 rounded border shadow login-box1 ">
                   <h3 className="m-2 pt-2 pb-2 border-bottom ">Search Route</h3>
                   <form className="m-2">
                     <div className="login-form1">
-                      <div class="form-group1 my-3">
+                      <div className="form-group1 my-3">
                         <label>
                           <b>Source</b>
                         </label>
@@ -140,7 +140,7 @@ export default class UserHomePage extends Component {
                           }}
                         />
                       </div>
-                      <div class="form-group1 my-3">
+                      <div className="form-group1 my-3">
                         <label>
                           <b>Destination</b>
                         </label>

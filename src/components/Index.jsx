@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import image from './roadimg.png'
+import roadimg from '../images/roadimg.png';
 import './index.css'
-
 
 
 class Index extends Component {
@@ -56,7 +55,7 @@ class Index extends Component {
                     <div className="col-lg-8 col-md-6 col-sm-12 img-container">
                         <h2 className="mt-2 font-weight-bold"> My Travel</h2>
                         <span><em> The fastest, Easiest way to Gather information..! </em></span>
-                        <img className="main-image image-fluid w-100" src={image} alt="" />
+                        <img className="main-image image-fluid w-100" src={roadimg} alt="" />
                     </div>
 
                     <div className="col-lg-4 col-md-6 col-sm-12 login-container">

@@ -60,7 +60,7 @@ export default class Favourite extends Component {
                         this.state.fav.map((t, index) => {
                             return (
 
-                                <div className="col p-3 text-center" key={t.email}>
+                                <div className="col p-3 text-center">
                                     <div className=" border-0 shadow rounded bg-light p-3">
                                         <p className="mb-0">{t.source}</p>
                                         <h1 className="text-danger"> &#8675;</h1>
